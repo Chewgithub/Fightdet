@@ -27,3 +27,9 @@ six>=1.14
 joblib
 memoized-property
 termcolor
+
+#Deep_learning
+tensorflow
+
+#video_processing
+opencv-python
