@@ -1,6 +1,6 @@
 import numpy as np
 import cv2 as cv
-# from Fightdet.ysget_optical_flow import get_optical_flow
+from Fightdet.ysget_optical_flow import get_optical_flow as gof
 
 def video_to_numpy(video_file_path, resize=(224,224), grayscale=False, get_optical_flow=False):
     '''
@@ -44,7 +44,7 @@ def video_to_numpy(video_file_path, resize=(224,224), grayscale=False, get_optic
 
     if get_optical_flow:
         # add 2 optical flow channels
-        return get_optical_flow(video_array)
+        return gof(video_array)
     else:
         return video_array
 
