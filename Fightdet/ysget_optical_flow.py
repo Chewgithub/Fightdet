@@ -10,15 +10,15 @@ def getOpticalFlow(video):
         flows_x: the optical flow at x-axis, with the shape of [frames,height,width,channel]
         flows_y: the optical flow at y-axis, with the shape of [frames,height,width,channel]
     """
-    # initialize the list of optical flows
+
+    # create the base grayscale image for optical flow calculation
     gray_video = []
     for i in range(len(video)):
         img = cv2.cvtColor(video[i], cv2.COLOR_RGB2GRAY)
         gray_video.append(np.reshape(img,(224,224,1)))
 
+    # creating the optical flow layers
     flows = []
-
-
     for i in range(0,len(video)-1):
         # calculate optical flow between each pair of frames
         flow = cv2.calcOpticalFlowFarneback(gray_video[i], gray_video[i+1], None, 0.5, 3, 15, 3, 5, 1.2, cv2.OPTFLOW_FARNEBACK_GAUSSIAN)
@@ -28,10 +28,10 @@ def getOpticalFlow(video):
         # normalize each component in optical flow
         flow[..., 0] = cv2.normalize(flow[..., 0],None,0,255,cv2.NORM_MINMAX)
         flow[..., 1] = cv2.normalize(flow[..., 1],None,0,255,cv2.NORM_MINMAX)
-        # Add into list
+        # Append them into a list
         flows.append(flow)
 
-    # Padding the last frame as empty array
+    # Padding the last optical flow frame as empty array. Last frame has no subsequent flow therefore all 0.
     flows.append(np.zeros((224,224,2)))
 
     return np.array(flows, dtype=np.float32)
