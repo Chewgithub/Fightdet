@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 
-def getOpticalFlow(video):
+def get_optical_flow(video):
     """Calculate dense optical flow of input video
     Args:
         video: the input video with shape of [frames,height,width,channel]. dtype=np.array
