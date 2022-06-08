@@ -14,6 +14,9 @@ def process_data(raw_data_path, target_path,grayscale=False,getopticalflow=False
     Parameters:
         raw_data_path: str
         target_path: str
+        grayscale: bool
+        getopticalflow: bool
+        n_videos: int
     Returns:
         None
     '''
