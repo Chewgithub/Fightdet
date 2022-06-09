@@ -33,8 +33,8 @@ def video_to_numpy(video_file_path, resize=(224,224), grayscale=False, optical_o
         if resize is not None:
             frame = cv2.resize(frame, dsize=resize, interpolation=cv2.INTER_AREA)
         # change frame to RGB and add to video
-        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        video_array.append(frame)
+        rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        video_array.append(rgb_frame)
         # make a copy of the frame in grayscale and add to gray_scale video
         if grayscale:
             gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
