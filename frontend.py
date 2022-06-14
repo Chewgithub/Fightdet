@@ -1,10 +1,11 @@
 import streamlit as st
 import cv2
-import streamlit_authenticator as stauth
+# import streamlit_authenticator as stauth
 import numpy as np
 import pandas as pd
 import tempfile
 import time
+from Fightdet.predict import make_prediction
 
 st.set_page_config(page_title="VDS (v1.0)",
     page_icon="🐍",
@@ -30,6 +31,10 @@ if uploaded_file is not None:
 
     tfile = tempfile.NamedTemporaryFile(delete=False)
     tfile.write(uploaded_file.read())
+    st.markdown(f"making prediction.......")
+    result=make_prediction(tfile.name)
+    st.markdown(f"result : {result}")
+
     vf = cv2.VideoCapture(tfile.name)
 
     st.markdown(f"video fps : {int(vf.get(cv2.CAP_PROP_FPS))}")
