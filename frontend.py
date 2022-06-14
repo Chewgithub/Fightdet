@@ -4,6 +4,7 @@ import streamlit_authenticator as stauth
 import numpy as np
 import pandas as pd
 import tempfile
+import time
 
 st.set_page_config(page_title="VDS (v1.0)",
     page_icon="🐍",
@@ -21,27 +22,17 @@ st.sidebar.markdown("[Home Page](https:www.google.com)")
 st.markdown("""# Violence Detection System
 VDS v1.0 - Last Update: 14-6-2022""")
 
-st.set_option('deprecation.showfileUploaderEncoding', False)
-
-uploaded_file = st.file_uploader("Please upload your video file", type=["mp4", "mpeg","avi"])
+uploaded_file = st.file_uploader("Please upload your video file", type=["mp4","avi"])
 
 if uploaded_file is not None:
+
+    st.video(uploaded_file, start_time=0)
 
     tfile = tempfile.NamedTemporaryFile(delete=False)
     tfile.write(uploaded_file.read())
     vf = cv2.VideoCapture(tfile.name)
 
-    stframe = st.empty()
-
-    while vf.isOpened():
-        ret, frame = vf.read()
-        # if frame is read correctly ret is True
-        if not ret:
-            print("Can't receive frame (stream end?). Exiting ...")
-            break
-        # gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        stframe.image(frame)
-
+    st.markdown(f"video fps : {int(vf.get(cv2.CAP_PROP_FPS))}")
 
 st.warning('''Warning! Maximum acceptable video clip length will be 5 seconds.''')
 
