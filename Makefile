@@ -69,3 +69,6 @@ set_project:
 
 create_bucket:
 	@gsutil mb -l ${REGION} -p ${PROJECT_ID} gs://${BUCKET_NAME}
+
+run_api:
+	uvicorn api.fast:app --reload  # load web server with code autoreload
