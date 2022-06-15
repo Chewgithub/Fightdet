@@ -59,9 +59,7 @@ for Violence Detection in 2019.\n
 Further exploration based on their study is conducted by testing on several different models, with different channels and optimizers.\n
 For this demonstration, the model is developed based on grayscale + optical flows, utilizing the Flowed Gated Network architecture.
 
-### :information_source: Disclaimer
-This frontend is developed for showcasing model's capability, therefore this presentation are done by
-manual uploading video as shown instead of direct connection through streaming input.""")
+### """)
 
 
 footer="""<style>
@@ -88,6 +86,8 @@ text-align: center;
 }
 </style>
 <div class="footer">
+<p>ℹ️ Disclaimer : This frontend is developed for showcasing model's capability, therefore the demonstration is done by
+manual uploading video as shown instead of direct connection through streaming input.
 <p>Developed by
 <span><a style='display: text-align: center;' href="https://github.com/Chewgithub" target="_blank"> EY Chew </a> | \
 <a style='display: text-align: center;' href="https://github.com/yc-ng" target="_blank"> YC Ng </a> | \
