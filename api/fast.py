@@ -1,11 +1,9 @@
 from fastapi import FastAPI, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from datetime import datetime
-import pytz
-import pandas as pd
-import numpy as np
-import tempfile
 import shutil
+import time
+from pathlib import Path
+from tempfile import NamedTemporaryFile
 from Fightdet.predict import make_prediction
 
 app = FastAPI()
@@ -20,22 +18,21 @@ app.add_middleware(
 
 @app.get("/")
 def index():
-    return {"greeting": "Hello world"}
-
-{
-  "greeting": "Hello world"
-}
-
-@app.get("/predict")
-def predict(aa, bb):
-    # compute `wait_prediction` from `day_of_week` and `time`
-    return aa+bb
+    return {"greeting": "Violence Detection System v1.0"}
 
 @app.post("/uploadfile/")
-async def create_upload_file(uploaded_video: UploadFile):
-    with open(f'to_predict.mp4','wb') as buffer:
-        shutil.copyfileobj(uploaded_video.file, buffer)
-    result=make_prediction('to_predict.mp4')
+async def upload_file(uploaded_file: UploadFile):
+    start = time.perf_counter()
+    filename = uploaded_file.filename
 
+    # transfer uploaded_file to temp file for prediction
+    # store only the prediction result
+    suffix = Path(filename).suffix
+    with NamedTemporaryFile(delete=True, suffix=suffix) as tmp:
+        shutil.copyfileobj(uploaded_file.file, tmp)
+        result=make_prediction(tmp.name)
 
-    return {"filename": uploaded_video.filename, 'Result':result}
+    # close connection to uploaded_file
+    uploaded_file.file.close()
+    end = time.perf_counter()
+    return {"filename": filename, 'result':result, 'time':round(end-start,2)}
