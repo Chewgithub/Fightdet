@@ -1,20 +1,19 @@
 import streamlit as st
-import cv2
+import time
 # import streamlit_authenticator as stauth
-import numpy as np
-import pandas as pd
 import tempfile
 import webbrowser
 from Fightdet.predict import make_prediction
 
+## Page Configuration
 st.set_page_config(page_title="VDS (v1.0)",
     page_icon="👊",
     layout="wide",  # wide
     initial_sidebar_state="auto")
 
+
+## Top Bar Configuration
 col1, col2, col3 = st.columns([7,1,1.2])
-
-
 
 if col3.button("👨 Login/Sign Up"):
     # print is visible in the server output, not in the page
@@ -26,24 +25,24 @@ if col2.button("🏠 Home Page"):
 
 col1.title("""Violence Detection System""")
 
+
+## Body File Upload Configuration
 uploaded_file = st.file_uploader("Please upload your video file", type=["mp4","avi"])
 
 
 if uploaded_file is not None:
     col1, col2 = st.columns([2,1])
     col1.video(uploaded_file, start_time=0)
-
-    tfile = tempfile.NamedTemporaryFile(delete=False)
-    tfile.write(uploaded_file.read())
-    progress = col2.markdown(f"#### Making prediction.......")
-
-    result=make_prediction(tfile.name)
+    with col2:
+        tfile = tempfile.NamedTemporaryFile(delete=False)
+        tfile.write(uploaded_file.read())
+        with st.spinner(text="Making prediction......."):
+            result=make_prediction(tfile.name)
     if result==1:
-        col2.error("**Violent Activity Detected**")
+        col2.error("**Violent Activity Detected**"
+                   "  \n Warning triggered and relevant authorities are notified")
     else:
         col2.success("**No Violent Activity Detected**")
-
-    progress.empty()
 
     #fps display
     # vf = cv2.VideoCapture(tfile.name)
@@ -51,7 +50,7 @@ if uploaded_file is not None:
 
 st.info('''Higher quality and longer video clips will require longer time for prediction.''')
 
-# and used in order to select the displayed lines
+# Bottom info
 st.markdown("""\n
 ### :book: Background
 This study is inspired by the works of Cheng, Cai, and Li's work in [RWF-2000: An Open Large Scale Video Database](https://arxiv.org/abs/1911.05913v3)
@@ -61,7 +60,7 @@ For this demonstration, the model is developed based on grayscale + optical flow
 
 ### """)
 
-
+# Footer
 footer="""<style>
 a:link , a:visited{
 color: blue;
