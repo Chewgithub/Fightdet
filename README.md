@@ -31,10 +31,3 @@ As the downloaded videos clips are from different surveillance cameras in public
 
 
 - Transient action
-
-
-### Demo
-
-- Example - 1
-
-- Example - 2
