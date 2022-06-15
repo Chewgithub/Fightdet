@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 
-def get_optical_flow(video):
+def get_optical_flow(gray_video):
     """Calculate dense optical flow of input video
     Args:
         video: the input video with shape of [frames,height,width,channel]. dtype=np.array
@@ -12,14 +12,11 @@ def get_optical_flow(video):
     """
 
     # create the base grayscale image for optical flow calculation
-    gray_video = []
-    for i in range(len(video)):
-        img = cv2.cvtColor(video[i], cv2.COLOR_RGB2GRAY)
-        gray_video.append(np.reshape(img,(224,224,1)))
+
 
     # creating the optical flow layers
     flows = []
-    for i in range(0,len(video)-1):
+    for i in range(0,len(gray_video)-1):
         # calculate optical flow between each pair of frames
         flow = cv2.calcOpticalFlowFarneback(gray_video[i], gray_video[i+1], None, 0.5, 3, 15, 3, 5, 1.2, cv2.OPTFLOW_FARNEBACK_GAUSSIAN)
         # subtract the mean in order to eliminate the movement of camera
