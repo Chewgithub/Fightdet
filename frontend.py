@@ -21,7 +21,6 @@ if col3.button("👨 Login/Sign Up"):
     names = st.text_input('Name', 'Chew')
     usernames = st.text_input('Username', 'Fightclub')
     password = st.text_input('Password','alphanumerical only')
-    st.write('I was clicked 🎉')
 if col2.button("🏠 Home Page"):
     webbrowser.open_new_tab("www.google.com")
 
@@ -36,13 +35,13 @@ if uploaded_file is not None:
 
     tfile = tempfile.NamedTemporaryFile(delete=False)
     tfile.write(uploaded_file.read())
-    progress = st.markdown(f"making prediction.......")
-    
+    progress = st.markdown(f"#### Making prediction.......")
+
     result=make_prediction(tfile.name)
-    if result==0:
-        st.error("**Violence Activity Detected**")
+    if result==1:
+        st.error("**Violent Activity Detected**")
     else:
-        st.success("**No Violence Activity Detected**")
+        st.success("**No Violent Activity Detected**")
 
     progress.empty()
 
@@ -50,7 +49,7 @@ if uploaded_file is not None:
     # vf = cv2.VideoCapture(tfile.name)
     # st.markdown(f"video fps : {int(vf.get(cv2.CAP_PROP_FPS))}")
 
-st.info('''Higher quality video clip length will will require much higher time for prediction.''')
+st.info('''Higher quality and longer video clips will require longer time for prediction.''')
 
 
 # this slider allows the user to select a number of lines
@@ -63,18 +62,16 @@ if agree:
     line_count = st.slider('Selection Threshold', 1, 10, 3)
 
 # and used in order to select the displayed lines
-st.write("")
-st.write(""":book: Background  \n"""
-    """This study is inspired by the works of Cheng, Cai, and Li's work in RWF-2000: An Open Large Scale Video Database \
-    for Violence Detection in 2019.  \n Further exploration based on their study is conducted by testing on several different \
-    models, with different channels and optimizers.  \n For this demonstration, the model is developed based on grayscale \
-    + optical flows, utilizing the Flowed Gated Network architecture.""")
+st.markdown("""\n
+### :book: Background
+This study is inspired by the works of [Cheng, Cai, and Li's work in RWF-2000: An Open Large Scale Video Database](https://arxiv.org/abs/1911.05913v3)
+for Violence Detection in 2019.\n
+Further exploration based on their study is conducted by testing on several different models, with different channels and optimizers.\n
+For this demonstration, the model is developed based on grayscale + optical flows, utilizing the Flowed Gated Network architecture.
 
-st.write("")
-st.write(
-    ''':information_source: Disclaimer  \n'''
-    '''This frontend is developed for showcasing model's capability, therefore this presentation are done by \
-    manual uploading video as shown instead of direct connection through streaming input''')
+### :information_source: Disclaimer
+This frontend is developed for showcasing model's capability, therefore this presentation are done by
+manual uploading video as shown instead of direct connection through streaming input.""")
 
 
 footer="""<style>
