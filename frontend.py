@@ -20,7 +20,7 @@ if col3.button("👨 Login/Sign Up"):
     usernames = st.text_input('Username', 'Fightclub')
     password = st.text_input('Password','alphanumerical only')
 if col2.button("🏠 Home Page"):
-    webbrowser.open_new_tab("https://github.com/Chewgithub/Fightdet.com")
+    webbrowser.open_new_tab("https://github.com/Chewgithub/Fightdet")
 
 col1.title("""Violence Detection System""")
 
@@ -50,14 +50,12 @@ if uploaded_file is not None:
 st.info('''Higher quality and longer video clips will require longer time for prediction.''')
 
 # Bottom info
-st.markdown("""\n
-### :book: Background
-This study is inspired by the works of Cheng, Cai, and Li's work in [RWF-2000: An Open Large Scale Video Database](https://arxiv.org/abs/1911.05913v3)
-for Violence Detection in 2019.\n
-Further exploration based on their study is conducted by testing on several different models, with different channels and optimizers.\n
-For this demonstration, the model is developed based on grayscale + optical flows, utilizing the Flowed Gated Network architecture.
+st.markdown("""### :book: Background
 
-### """)
+This study is inspired by the works of Cheng, Cai, and Li's work in [RWF-2000: An Open Large Scale Video Database](https://arxiv.org/abs/1911.05913v3)
+for Violence Detection in 2019. Further exploration based on their study is conducted by testing on several different models, with different channels
+and optimizers. For this demonstration, the model is developed based on grayscale + optical flows, utilizing the Flowed Gated Network architecture.
+""")
 
 # Footer
 footer="""<style>
