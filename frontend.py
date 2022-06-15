@@ -30,18 +30,18 @@ uploaded_file = st.file_uploader("Please upload your video file", type=["mp4","a
 
 
 if uploaded_file is not None:
-    col1, col2, col3 = st.columns([1,1,1])
-    col2.video(uploaded_file, start_time=0)
+    col1, col2 = st.columns([2,1])
+    col1.video(uploaded_file, start_time=0)
 
     tfile = tempfile.NamedTemporaryFile(delete=False)
     tfile.write(uploaded_file.read())
-    progress = st.markdown(f"#### Making prediction.......")
+    progress = col2.markdown(f"#### Making prediction.......")
 
     result=make_prediction(tfile.name)
     if result==1:
-        st.error("**Violent Activity Detected**")
+        col2.error("**Violent Activity Detected**")
     else:
-        st.success("**No Violent Activity Detected**")
+        col2.success("**No Violent Activity Detected**")
 
     progress.empty()
 
@@ -51,20 +51,10 @@ if uploaded_file is not None:
 
 st.info('''Higher quality and longer video clips will require longer time for prediction.''')
 
-
-# this slider allows the user to select a number of lines
-# to display in the dataframe
-# the selected value is returned by st.slider
-
-agree = st.checkbox('Program Customization')
-
-if agree:
-    line_count = st.slider('Selection Threshold', 1, 10, 3)
-
 # and used in order to select the displayed lines
 st.markdown("""\n
 ### :book: Background
-This study is inspired by the works of [Cheng, Cai, and Li's work in RWF-2000: An Open Large Scale Video Database](https://arxiv.org/abs/1911.05913v3)
+This study is inspired by the works of Cheng, Cai, and Li's work in [RWF-2000: An Open Large Scale Video Database](https://arxiv.org/abs/1911.05913v3)
 for Violence Detection in 2019.\n
 Further exploration based on their study is conducted by testing on several different models, with different channels and optimizers.\n
 For this demonstration, the model is developed based on grayscale + optical flows, utilizing the Flowed Gated Network architecture.
@@ -102,8 +92,7 @@ text-align: center;
 <span><a style='display: text-align: center;' href="https://github.com/Chewgithub" target="_blank"> EY Chew </a> | \
 <a style='display: text-align: center;' href="https://github.com/yc-ng" target="_blank"> YC Ng </a> | \
 <a style='display: text-align: center;' href="https://github.com/yongsin91/" target="_blank"> YS Tan </a></span>
-<a text-align: right>
-VDS v1.0 - Last Update: 14-6-2022</a></p></div>
+<span><a text-align: center>&nbsp;&nbsp;VDS v1.0 - Last Update: 14-6-2022</a></span></p></div>
 """
 st.markdown(footer,unsafe_allow_html=True)
 
