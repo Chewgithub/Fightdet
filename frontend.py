@@ -1,8 +1,5 @@
 import streamlit as st
-import cv2
 # import streamlit_authenticator as stauth
-import numpy as np
-import pandas as pd
 import tempfile
 import webbrowser
 from Fightdet.predict import make_prediction
