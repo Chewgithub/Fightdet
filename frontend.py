@@ -1,5 +1,4 @@
 import streamlit as st
-import time
 # import streamlit_authenticator as stauth
 import tempfile
 import webbrowser
@@ -21,7 +20,7 @@ if col3.button("👨 Login/Sign Up"):
     usernames = st.text_input('Username', 'Fightclub')
     password = st.text_input('Password','alphanumerical only')
 if col2.button("🏠 Home Page"):
-    webbrowser.open_new_tab("www.google.com")
+    webbrowser.open_new_tab("https://github.com/Chewgithub/Fightdet.com")
 
 col1.title("""Violence Detection System""")
 
