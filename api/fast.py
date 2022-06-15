@@ -25,12 +25,18 @@ async def upload_file(uploaded_file: UploadFile):
     start = time.perf_counter()
     filename = uploaded_file.filename
 
-    # transfer uploaded_file to temp file for prediction
-    # store only the prediction result
-    suffix = Path(filename).suffix
-    with NamedTemporaryFile(delete=True, suffix=suffix) as tmp:
-        shutil.copyfileobj(uploaded_file.file, tmp)
-        result=make_prediction(tmp.name)
+    # copy uploaded_file to a locally-saved video
+    # predict on the local video
+    with open(f'to_predict.mp4','wb') as buffer:
+        shutil.copyfileobj(uploaded_file.file, buffer)
+    result=make_prediction('to_predict.mp4')
+
+    # # transfer uploaded_file to temp file for prediction
+    # # store only the prediction result
+    # suffix = Path(filename).suffix
+    # with NamedTemporaryFile(delete=False, suffix=suffix) as tmp:
+    #     shutil.copyfileobj(uploaded_file.file, tmp)
+    #     result=make_prediction(tmp.name)
 
     # close connection to uploaded_file
     uploaded_file.file.close()

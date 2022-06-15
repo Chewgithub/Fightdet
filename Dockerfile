@@ -6,6 +6,8 @@ COPY api /api
 COPY requirements.txt /requirements.txt
 COPY wagon-bootcamp-347403-d06e1020e122.json /credentials.json
 
+RUN apt-get update
+RUN apt-get install -y libgl1
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
