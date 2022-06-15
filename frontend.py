@@ -29,6 +29,7 @@ col1.title("""Violence Detection System""")
 
 uploaded_file = st.file_uploader("Please upload your video file", type=["mp4","avi"])
 
+
 if uploaded_file is not None:
     col1, col2, col3 = st.columns([1,1,1])
     col2.video(uploaded_file, start_time=0)
@@ -36,11 +37,12 @@ if uploaded_file is not None:
     tfile = tempfile.NamedTemporaryFile(delete=False)
     tfile.write(uploaded_file.read())
     progress = st.markdown(f"making prediction.......")
+    
     result=make_prediction(tfile.name)
     if result==0:
-        st.error("Violence Activity Detected")
+        st.error("**Violence Activity Detected**")
     else:
-        st.success("No Violence Activity Detected")
+        st.success("**No Violence Activity Detected**")
 
     progress.empty()
 
