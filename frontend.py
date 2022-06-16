@@ -1,20 +1,14 @@
 import streamlit as st
-<<<<<<< HEAD
-=======
 # import streamlit_authenticator as stauth
->>>>>>> b91ae6faeb0d2cf82dc7aec59628dec99d359c80
 import tempfile
 import webbrowser
 from Fightdet.predict import make_prediction
 from tensorflow.keras.models import load_model
 
-<<<<<<< HEAD
-=======
 @st.cache(allow_output_mutation=True)
 def loading():
     return load_model('final_model(gray_op)')
 
->>>>>>> b91ae6faeb0d2cf82dc7aec59628dec99d359c80
 ## Page Configuration
 st.set_page_config(page_title="VDS (v1.0)",
     page_icon="👊",
