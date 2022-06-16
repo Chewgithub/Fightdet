@@ -13,7 +13,7 @@ def random_flip(video, prob=0.5):
 
 def load_data(numpy_file):
     data = np.float32(numpy_file)
-    data = random_flip(data, prob=0.5)
+    # data = random_flip(data, prob=0.5)
     data[...,:1] = normalize(data[...,:1])
     data[...,1:] = normalize(data[...,1:])
     return data

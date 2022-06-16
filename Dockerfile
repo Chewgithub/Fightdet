@@ -4,7 +4,7 @@ COPY final_model_gray_op /final_model_gray_op
 COPY Fightdet /Fightdet
 COPY api /api
 COPY requirements.txt /requirements.txt
-COPY wagon-bootcamp-347403-d06e1020e122.json /credentials.json
+# COPY eastern-entity-347317-0aa4d779e347.json /credentials.json
 COPY frontend.py /frontend.py
 COPY setup.py /setup.py
 # EXPOSE 8501
