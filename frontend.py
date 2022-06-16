@@ -7,7 +7,7 @@ from tensorflow.keras.models import load_model
 
 @st.cache(allow_output_mutation=True)
 def loading():
-    return load_model('final_model(gray_op)')
+    return load_model('final_model_gray_op')
 
 ## Page Configuration
 st.set_page_config(page_title="VDS (v1.0)",
