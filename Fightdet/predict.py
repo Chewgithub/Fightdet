@@ -7,6 +7,6 @@ def make_prediction(model, video_path):
     numpy_file=process_data(video_path, grayscale=True,optical_only=False, n_videos=1)
     pre_processed_numpy=load_data(numpy_file)
 
-    result=round(model.predict(pre_processed_numpy.reshape(1,64,224,224,3))[0][0])
+    result=model.predict(pre_processed_numpy.reshape(1,64,224,224,3))[0][0]
 
     return result

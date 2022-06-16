@@ -42,11 +42,11 @@ if uploaded_file is not None:
         tfile.write(uploaded_file.read())
         with st.spinner(text="Making prediction......."):
             result=make_prediction(loading(), tfile.name)
-    if result==1:
-        col2.error("**Violent Activity Detected**"
-                   "  \n Warning triggered and relevant authorities are notified")
+    if round(result)==1:
+        col2.error("**Violent Activity Detected**")
     else:
         col2.success("**No Violent Activity Detected**")
+    col2.info(f"Predicted probability that violent activity is occurring: {100*result:0.2f}%")
 
     #fps display
     # vf = cv2.VideoCapture(tfile.name)
