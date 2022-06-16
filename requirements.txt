@@ -36,3 +36,4 @@ tensorflow
 opencv-python
 
 python-multipart
+streamlit

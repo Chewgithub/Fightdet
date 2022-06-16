@@ -13,5 +13,5 @@ setup(name='Fightdet',
       test_suite='tests',
       # include_package_data: to install data from MANIFEST.in
       include_package_data=True,
-      scripts=['scripts/Fightdet-run'],
+    #   scripts=['scripts/Fightdet-run'],
       zip_safe=False)

@@ -1,5 +1,5 @@
 import streamlit as st
-# import streamlit_authenticator as stauth
+
 import tempfile
 import webbrowser
 from Fightdet.predict import make_prediction
