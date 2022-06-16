@@ -7,7 +7,6 @@ wheel>=0.29
 # data science
 numpy
 pandas
-scikit-learn
 seaborn
 
 # tests/linter
@@ -23,10 +22,10 @@ google-cloud-storage
 mlflow
 s3fs
 fastapi
+uvicorn
 
 # utilities
 six>=1.14
-joblib
 memoized-property
 termcolor
 
@@ -36,4 +35,5 @@ tensorflow
 #video_processing
 opencv-python
 
- python-multipart
+python-multipart
+streamlit
