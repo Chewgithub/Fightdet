@@ -54,21 +54,8 @@ if uploaded_file is not None:
 
 st.info('''Higher quality and longer video clips will require longer time for prediction.''')
 
-<<<<<<< HEAD
-# and used in order to select the displayed lines
-st.markdown("""\n
-### :book: Background
-This study is inspired by the works of Cheng, Cai, and Li's work in [RWF-2000: An Open Large Scale Video Database](https://arxiv.org/abs/1911.05913v3)
-for Violence Detection in 2019.\n
-Further exploration based on their study is conducted by testing on several different models, with different channels and optimizers.\n
-For this demonstration, the model is developed based on grayscale + optical flows, utilizing the Flowed Gated Network architecture.
-### :information_source: Disclaimer
-This frontend is developed for showcasing model's capability, therefore this presentation are done by
-manual uploading video as shown instead of direct connection through streaming input.""")
-=======
 # Bottom info
 st.markdown("""### :book: Background
->>>>>>> b91ae6faeb0d2cf82dc7aec59628dec99d359c80
 
 This study is inspired by the works of Cheng, Cai, and Li's work in [RWF-2000: An Open Large Scale Video Database](https://arxiv.org/abs/1911.05913v3)
 for Violence Detection in 2019. Further exploration based on their study is conducted by testing on several different models, with different channels
