@@ -3,13 +3,17 @@ import streamlit as st
 import tempfile
 import webbrowser
 from Fightdet.predict import make_prediction
+from tensorflow.keras.models import load_model
+
+@st.cache(allow_output_mutation=True)
+def loading():
+    return load_model('final_model(gray_op)')
 
 ## Page Configuration
 st.set_page_config(page_title="VDS (v1.0)",
     page_icon="👊",
     layout="wide",  # wide
     initial_sidebar_state="auto")
-
 
 ## Top Bar Configuration
 col1, col2, col3 = st.columns([7,1,1.2])
@@ -25,9 +29,10 @@ if col2.button("🏠 Home Page"):
 col1.title("""Violence Detection System""")
 
 
+
+
 ## Body File Upload Configuration
 uploaded_file = st.file_uploader("Please upload your video file", type=["mp4","avi"])
-
 
 if uploaded_file is not None:
     col1, col2 = st.columns([2,1])
@@ -36,7 +41,7 @@ if uploaded_file is not None:
         tfile = tempfile.NamedTemporaryFile(delete=False)
         tfile.write(uploaded_file.read())
         with st.spinner(text="Making prediction......."):
-            result=make_prediction(tfile.name)
+            result=make_prediction(loading(), tfile.name)
     if result==1:
         col2.error("**Violent Activity Detected**"
                    "  \n Warning triggered and relevant authorities are notified")
