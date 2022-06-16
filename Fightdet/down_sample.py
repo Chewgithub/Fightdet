@@ -5,7 +5,7 @@ def down_sampling(video_array, target_frames=64):
 Reads a video array that is more than 64 frames and down sample it to 64 frames
 without changing the dimensions (frame, height, width, channel)
 Parameters:
-    video_array: numpy array of len(video_array) more 64
+    video_array: numpy array of len(video_array) more than 64
 
 Returns:
     ndarray of (64, height, width, channel)

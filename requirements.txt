@@ -22,6 +22,7 @@ gcsfs
 google-cloud-storage
 mlflow
 s3fs
+fastapi
 
 # utilities
 six>=1.14
@@ -34,3 +35,5 @@ tensorflow
 
 #video_processing
 opencv-python
+
+ python-multipart
