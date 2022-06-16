@@ -1,17 +1,16 @@
 import streamlit as st
-# import streamlit_authenticator as stauth
 import tempfile
 import webbrowser
 from Fightdet.predict import make_prediction
 
+## Page Configuration
 st.set_page_config(page_title="VDS (v1.0)",
     page_icon="👊",
     layout="wide",  # wide
     initial_sidebar_state="auto")
 
+## Top Bar Configuration
 col1, col2, col3 = st.columns([7,1,1.2])
-
-
 
 if col3.button("👨 Login/Sign Up"):
     # print is visible in the server output, not in the page
@@ -19,7 +18,7 @@ if col3.button("👨 Login/Sign Up"):
     usernames = st.text_input('Username', 'Fightclub')
     password = st.text_input('Password','alphanumerical only')
 if col2.button("🏠 Home Page"):
-    webbrowser.open_new_tab("www.google.com")
+    webbrowser.open_new_tab("https://github.com/Chewgithub/Fightdet")
 
 col1.title("""Violence Detection System""")
 
