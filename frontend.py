@@ -4,6 +4,7 @@ import tempfile
 import webbrowser
 from Fightdet.predict import make_prediction
 from tensorflow.keras.models import load_model
+from io import BytesIO
 
 @st.cache(allow_output_mutation=True)
 def loading():
@@ -28,12 +29,26 @@ if col2.button("🏠 Home Page"):
 
 col1.title("""Violence Detection System""")
 
+# example videos that are pre-loaded for the demo
+preload_videos = {
+    'Example 1': 'demo_files/demo_01.mp4',
+    'Example 2': 'demo_files/demo_02.mp4',
+    'Example 3': 'demo_files/demo_03.mp4',
+    'Example 4': 'demo_files/demo_04.mp4',
+    'Example 5': 'demo_files/demo_05.mp4'
+}
 
+video_choice = st.radio("Select a video or Upload your own",
+     ['Upload Video', 'Example 1', 'Example 2', 'Example 3', 'Example 4', 'Example 5'],
+     horizontal=True)
+if video_choice == 'Upload Video':
+    uploaded_file = st.file_uploader("Please upload your video file", type=["mp4","avi"])
+else:
+    # open pre-loaded video for subsequent prediction
+    with open(preload_videos[video_choice], 'rb') as con:
+        uploaded_file = BytesIO(con.read())
 
-
-## Body File Upload Configuration
-uploaded_file = st.file_uploader("Please upload your video file", type=["mp4","avi"])
-
+# play the video while the model carries out the prediction
 if uploaded_file is not None:
     col1, col2 = st.columns([2,1])
     col1.video(uploaded_file, start_time=0)
@@ -47,10 +62,6 @@ if uploaded_file is not None:
     else:
         col2.success("**No Violent Activity Detected**")
     col2.info(f"Predicted probability that violent activity is occurring: {100*result:0.2f}%")
-
-    #fps display
-    # vf = cv2.VideoCapture(tfile.name)
-    # st.markdown(f"video fps : {int(vf.get(cv2.CAP_PROP_FPS))}")
 
 st.info('''Higher quality and longer video clips will require longer time for prediction.''')
 
