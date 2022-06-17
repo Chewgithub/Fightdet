@@ -18,16 +18,34 @@ As mentioned, this exploration is done based on the RWF-2000 dataset. RWF-2000 d
 ## Problems
 As the downloaded videos clips are from different surveillance cameras in public places, imaging quality of the video clips varies due to dark environment, fast movement, blurry images, etc. These variations affects the quality of the model. Here are some examples:
 
-- Only part of the person appears in the picture
+<table align='center'>
+  <tr>
+    <th colspan="2" style="text-align:center">Problems</th>
+  </tr>
+  <tr>
+    <td align="center">Only part of the person appears in the picture</td>
+    <td align="center">Crowds and chaos</td>
+  </tr>
+  <tr>
+    <td align="center"><img src="https://github.com/Chewgithub/Fightdet/blob/master/images/blocked.gif" width="400px" height="250px"></td>
+    <td align="center"><img src="https://github.com/Chewgithub/Fightdet/blob/master/images/crowded.gif" width="400px" height="250px"></td>
+  </tr>
+  <tr>
+    <td align="center">Small object at far distance</td>
+    <td align="center">Low resolution</td>
+  </tr>
+  <tr>
+    <td align="center"><img src="https://github.com/Chewgithub/Fightdet/blob/master/images/far_distance.gif" width="400px" height="250px"></td>
+    <td align="center"><img src="https://github.com/Chewgithub/Fightdet/blob/master/images/low_resolution.gif" width="400px" height="250px"></td>
+  </tr>
+  <tr>
+    <td align="center">Transient action</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="https://github.com/Chewgithub/Fightdet/blob/master/images/transient.gif" width="400px" height="250px"></td>
+    <td></td>
+  </tr>
+</table>
 
 
-- Crowds and chaos
-
-
-- Small object at far distance
-
-
-- Low resolution
-
-
-- Transient action
