@@ -38,11 +38,12 @@ preload_videos = {
     'Example 5': 'demo_files/demo_05.mp4'
 }
 
-video_choice = st.radio("Select a video or Upload your own",
+col1, col2 = st.columns([1,1])
+video_choice = col1.radio("Select a video or Upload your own",
      ['Upload Video', 'Example 1', 'Example 2', 'Example 3', 'Example 4', 'Example 5'],
      horizontal=True)
 if video_choice == 'Upload Video':
-    uploaded_file = st.file_uploader("Please upload your video file", type=["mp4","avi"])
+    uploaded_file = col1.file_uploader("Please upload your video file", type=["mp4","avi"])
 else:
     # open pre-loaded video for subsequent prediction
     with open(preload_videos[video_choice], 'rb') as con:
@@ -50,23 +51,22 @@ else:
 
 # play the video while the model carries out the prediction
 if uploaded_file is not None:
-    col1, col2 = st.columns([2,1])
-    col1.video(uploaded_file, start_time=0)
-    with col2:
+    col2.video(uploaded_file, start_time=0)
+    with col1:
         tfile = tempfile.NamedTemporaryFile(delete=False)
         tfile.write(uploaded_file.read())
         with st.spinner(text="Making prediction......."):
             result=make_prediction(loading(), tfile.name)
     if round(result)==1:
-        col2.error("**Violent Activity Detected**")
+        col1.error("**Violent Activity Detected**")
     else:
-        col2.success("**No Violent Activity Detected**")
-    col2.info(f"Predicted probability that violent activity is occurring: {100*result:0.2f}%")
+        col1.success("**No Violent Activity Detected**")
+    col1.info(f"Predicted probability that violent activity is occurring: {100*result:0.2f}%")
 
-st.info('''Higher quality and longer video clips will require longer time for prediction.''')
+col1.info('''Higher quality and longer video clips will require longer time for prediction.''')
 
 # Bottom info
-st.markdown("""### :book: Background
+col1.markdown("""### :book: Background
 
 This study is inspired by the works of Cheng, Cai, and Li's work in [RWF-2000: An Open Large Scale Video Database](https://arxiv.org/abs/1911.05913v3)
 for Violence Detection in 2019. Further exploration based on their study is conducted by testing on several different models, with different channels
