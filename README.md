@@ -35,7 +35,7 @@ As the downloaded videos clips are from different surveillance cameras in public
     <td align="center">Low resolution</td>
   </tr>
   <tr>
-    <td align="center"><img src="https://github.com/yongsin91/Fightdet/blob/master/images/far_distance.gif" width="400px" height="250px"></td>
+    <td align="center"><img src="https://github.com/Chewgithub/Fightdet/blob/master/images/far_distance.gif" width="400px" height="250px"></td>
     <td align="center"><img src="https://github.com/Chewgithub/Fightdet/blob/master/images/low_resolution.gif" width="400px" height="250px"></td>
   </tr>
   <tr>
