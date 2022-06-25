@@ -13,41 +13,43 @@ def video_to_numpy(video_file_path, resize=(224,224), grayscale=True, optical_on
         grayscale: bool
         optical_only: bool
     Returns:
-        ndarray of (frame, height, width, channel)
+        ndarray of shape (frame, height, width, channels)
     '''
 
     cap = cv2.VideoCapture(video_file_path)
 
-    # initialize the video as an empty list
+    # list to contain video frames
     gray_video_array=[]
 
     while cap.isOpened():
-        # read next frame
+        # read next frame of the video
         ret, frame = cap.read()
         # if no frame is read, close the video and exit
         if not ret:
             cap.release()
             break
+
         # resize the video if a resize shape is given
         if resize is not None:
             frame = cv2.resize(frame, dsize=resize, interpolation=cv2.INTER_AREA)
 
-        # make a copy of the frame in grayscale and add to gray_scale video
+        # make a copy of the frame in grayscale and add to gray_video_array
         if grayscale:
             gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             gray_frame = np.expand_dims(gray_frame, -1)
             gray_video_array.append(gray_frame)
 
-    if grayscale:
-      gray_video_array = np.array(gray_video_array)
-      # get_optical_flow always uses the RGB video array
-      optical_flow_array = get_optical_flow(gray_video_array)
-      result = np.zeros((len(gray_video_array),224,224,3))
-      result[...,:1] = gray_video_array
-      result[...,1:] = optical_flow_array
-      # return gray+optical_flow array (150,224,224,3)
-      print(result.shape)
-      return result
+    # construct gray+optical_flow array with shape (150,224,224,3)
+    if not optical_only:
+        gray_video_array = np.array(gray_video_array)
+        optical_flow_array = get_optical_flow(gray_video_array)
+        result = np.zeros((len(gray_video_array),224,224,3))
+        result[...,:1] = gray_video_array
+        result[...,1:] = optical_flow_array
+
+    # check the shape of the resulting array
+    print(result.shape)
+    return result
 
 
 # if __name__=="__main__":

@@ -1,11 +1,11 @@
 import streamlit as st
-# import streamlit_authenticator as stauth
 import tempfile
 import webbrowser
 from Fightdet.predict import make_prediction
 from tensorflow.keras.models import load_model
 from io import BytesIO
 
+# load and cache the model
 @st.cache(allow_output_mutation=True)
 def loading():
     return load_model('final_model_gray_op')
@@ -16,7 +16,10 @@ st.set_page_config(page_title="VDS (v1.0)",
     layout="wide",  # wide
     initial_sidebar_state="auto")
 
-## Top Bar Configuration
+###############################
+### menu bar at top of page ###
+###############################
+
 col1, col2, col3 = st.columns([7,1,1.2])
 
 if col3.button("👨 Login/Sign Up"):
@@ -29,6 +32,10 @@ if col2.button("🏠 Home Page"):
 
 col1.title("""Violence Detection System""")
 
+############################
+### main body of web app ###
+############################
+
 # example videos that are pre-loaded for the demo
 preload_videos = {
     'Example 1': 'demo_files/demo_01.mp4',
@@ -38,6 +45,8 @@ preload_videos = {
     'Example 5': 'demo_files/demo_05.mp4'
 }
 
+# video selection panel on the left side
+# user has the option to upload a video for prediction, or test the model on existing videos
 col1, col2 = st.columns([1,1])
 video_choice = col1.radio("Select a video or Upload your own",
      ['Upload Video', 'Example 1', 'Example 2', 'Example 3', 'Example 4', 'Example 5'],
@@ -49,9 +58,11 @@ else:
     with open(preload_videos[video_choice], 'rb') as con:
         uploaded_file = BytesIO(con.read())
 
-# play the video while the model carries out the prediction
+# play the video on the right side
 if uploaded_file is not None:
     col2.video(uploaded_file, start_time=0)
+    # model carries out the prediction on the left side
+    # display both prediction outcome and probability
     with col1:
         tfile = tempfile.NamedTemporaryFile(delete=False)
         tfile.write(uploaded_file.read())
@@ -63,9 +74,10 @@ if uploaded_file is not None:
         col1.success("**No Violent Activity Detected**")
     col1.info(f"Predicted probability that violent activity is occurring: {100*result:0.2f}%")
 
+# info box for users uploading their videos
 col1.info('''Higher quality and longer video clips will require longer time for prediction.''')
 
-# Bottom info
+# background information on the left side below predictions
 col1.markdown("""### :book: Background
 
 This study is inspired by the works of Cheng, Cai, and Li's work in [RWF-2000: An Open Large Scale Video Database](https://arxiv.org/abs/1911.05913v3)
@@ -73,7 +85,9 @@ for Violence Detection in 2019. Further exploration based on their study is cond
 and optimizers. For this demonstration, the model is developed based on grayscale + optical flows, utilizing the Flowed Gated Network architecture.
 """)
 
-# Footer
+###################
+### page footer ###
+###################
 footer="""<style>
 a:link , a:visited{
 color: blue;
@@ -105,20 +119,3 @@ manual uploading video as shown instead of direct connection through streaming i
 <span><a text-align: center>&nbsp;&nbsp;VDS v1.0 - Last Update: 14-6-2022</a></span></p></div>
 """
 st.markdown(footer,unsafe_allow_html=True)
-
-# # Login System
-# names = ['John Smith','Rebecca Briggs']
-# usernames = ['jsmith','rbriggs']
-# passwords = ['123','456']
-
-# hashed_passwords = stauth.Hasher(passwords).generate()
-# authenticator = stauth.Authenticate(names,usernames,hashed_passwords,
-#     'some_cookie_name','some_signature_key',cookie_expiry_days=30)
-# if st.session_state['authentication_status']:
-#     authenticator.logout('Logout', 'main')
-#     st.write('Welcome *%s*' % (st.session_state['name']))
-#     st.title('Some content')
-# elif st.session_state['authentication_status'] == False:
-#     st.error('Username/password is incorrect')
-# elif st.session_state['authentication_status'] == None:
-#     st.warning('Please enter your username and password')
