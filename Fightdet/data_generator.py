@@ -117,7 +117,7 @@ class DataGenerator(Sequence):
         return data
 
 # Instatiate Generator
-def instantiate_generator(batch_size=5):
+def instantiate_generator(npy_dataset_folder, batch_size=5):
     '''
     This function instantiate the data generators for train and validation set for CNN model training
     Parameters:
@@ -130,8 +130,7 @@ def instantiate_generator(batch_size=5):
         val_generator(Datagenerator): data generator class for validation set
 
     '''
-    # change the folder path to raw_data folder which contain train and test set
-    npy_dataset_folder = 'raw_data/npy_raw_data'
+
     train_generator = DataGenerator(directory=f'{npy_dataset_folder}/train/',
                                 batch_size=batch_size,
                                 data_augmentation=True)
