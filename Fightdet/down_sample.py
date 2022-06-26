@@ -2,14 +2,14 @@ import numpy as np
 
 def down_sampling(video_array, target_frames=64):
     '''
-Reads a video array that is more than 64 frames and down sample it to 64 frames
-without changing the dimensions (frame, height, width, channel)
-Parameters:
-    video_array: numpy array of len(video_array) more than 64
-
-Returns:
-    ndarray of (64, height, width, channel)
-'''
+    Reads a video array that is more than 64 frames and down sample it to 64 frames
+    without changing the dimensions (frame, height, width, channel)
+    Parameters:
+        video_array(np.array): numpy array of len(video_array) more than 64
+        target_frames(int): number of output frame (default=64)
+    Returns:
+        ndarray of (64, height, width, channel)
+    '''
     # get total frames of input video and calculate sampling interval
     len_frames = int(len(video_array))
     interval = int(np.ceil(len_frames/target_frames))
