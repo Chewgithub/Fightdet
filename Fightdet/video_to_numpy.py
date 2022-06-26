@@ -7,47 +7,49 @@ def video_to_numpy(video_file_path, resize=(224,224), grayscale=True, optical_on
     Reads a video at video_filepath and converts it to a 4-D ndarray with dimensions (frame, height, width, channel).
     If grayscale is True, returns the ndarray with 1 grayscale channel and 2 optical flow channels, else returns ndarray with 3 RGB channels and 2 optical flow channels.
     If optical_only is True, returns the ndarray with 2 optical flow channels only.
+
     Parameters:
         video_file_path: str
-        resize: tuple of (int, int)
-        grayscale: bool
-        optical_only: bool
+        resize: tuple of (int, int), default (224,224)
+        grayscale: bool, default True
+        optical_only: bool, default
     Returns:
-        ndarray of (frame, height, width, channel)
+        ndarray of shape (frame, height, width, channels)
     '''
 
     cap = cv2.VideoCapture(video_file_path)
 
-    # initialize the video as an empty list
+    # list to contain video frames
     gray_video_array=[]
 
     while cap.isOpened():
-        # read next frame
         ret, frame = cap.read()
-        # if no frame is read, close the video and exit
+        # if the capture device does not read a frame, close the video
         if not ret:
             cap.release()
             break
+
         # resize the video if a resize shape is given
         if resize is not None:
             frame = cv2.resize(frame, dsize=resize, interpolation=cv2.INTER_AREA)
 
-        # make a copy of the frame in grayscale and add to gray_scale video
+        # make a copy of the frame in grayscale and add to gray_video_array
         if grayscale:
             gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             gray_frame = np.expand_dims(gray_frame, -1)
             gray_video_array.append(gray_frame)
 
-    if grayscale:
-      gray_video_array = np.array(gray_video_array)
-      # get_optical_flow always uses the RGB video array
-      optical_flow_array = get_optical_flow(gray_video_array)
-      result = np.zeros((len(gray_video_array),224,224,3))
-      result[...,:1] = gray_video_array
-      result[...,1:] = optical_flow_array
-      # return gray+optical_flow array (150,224,224,3)
-      print(result.shape)
-      return result
+    # construct gray+optical_flow array with shape (150,224,224,3)
+    if not optical_only:
+        gray_video_array = np.array(gray_video_array)
+        optical_flow_array = get_optical_flow(gray_video_array)
+        result = np.zeros((len(gray_video_array),224,224,3))
+        result[...,:1] = gray_video_array
+        result[...,1:] = optical_flow_array
+
+    # check the shape of the resulting array
+    print(result.shape)
+    return result
 
 
 # if __name__=="__main__":
