@@ -23,10 +23,7 @@ st.set_page_config(page_title="VDS (v1.0)",
 col1, col2, col3 = st.columns([7,1,1.2])
 
 if col3.button("👨 Login/Sign Up"):
-    # print is visible in the server output, not in the page
-    names = st.text_input('Name', 'Chew')
-    usernames = st.text_input('Username', 'Fightclub')
-    password = st.text_input('Password','alphanumerical only')
+    pass # remove login functionality from the button for now
 if col2.button("🏠 Home Page"):
     webbrowser.open_new_tab("https://github.com/Chewgithub/Fightdet")
 

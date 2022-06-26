@@ -4,12 +4,13 @@ from Fightdet.down_sample import down_sampling
 
 def process_data(video_path, grayscale=True,optical_only=False, n_videos=1):
     '''
-    Loads a video at video_path as an array and reduces the size of the array using downsampling and downcasting
+    Loads a video at video_path as an array and reduces the size of the array using downsampling and downcasting.
+
     Parameters:
         video_path: str
-        grayscale: bool
-        getopticalflow: bool
-        n_videos: int
+        grayscale: bool, default True
+        optical_only: bool, default False
+        n_videos: int, default 1
     Returns:
         ndarray of shape (frame, height, width, channels)
     '''

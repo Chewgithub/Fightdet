@@ -5,6 +5,7 @@ def make_prediction(model, video_path):
     '''
     Load and pre-process a video, then use fitted model to generate prediction on the processed video.
     The prediction is given as the probability (between 0 and 1) of the video being labelled "1" (violent activity detected) in a binary classification setup.
+
     Parameters:
         model: fitted tf.keras.Model
         video_path: str
