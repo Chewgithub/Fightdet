@@ -7,11 +7,12 @@ def video_to_numpy(video_file_path, resize=(224,224), grayscale=True, optical_on
     Reads a video at video_filepath and converts it to a 4-D ndarray with dimensions (frame, height, width, channel).
     If grayscale is True, returns the ndarray with 1 grayscale channel and 2 optical flow channels, else returns ndarray with 3 RGB channels and 2 optical flow channels.
     If optical_only is True, returns the ndarray with 2 optical flow channels only.
+
     Parameters:
         video_file_path: str
-        resize: tuple of (int, int)
-        grayscale: bool
-        optical_only: bool
+        resize: tuple of (int, int), default (224,224)
+        grayscale: bool, default True
+        optical_only: bool, default
     Returns:
         ndarray of shape (frame, height, width, channels)
     '''
@@ -22,9 +23,8 @@ def video_to_numpy(video_file_path, resize=(224,224), grayscale=True, optical_on
     gray_video_array=[]
 
     while cap.isOpened():
-        # read next frame of the video
         ret, frame = cap.read()
-        # if no frame is read, close the video and exit
+        # if the capture device does not read a frame, close the video
         if not ret:
             cap.release()
             break
