@@ -95,11 +95,18 @@ def model_fitting(cnn_model,train_generator,val_generator,es,csv_logger):
     return cnn_model
 
 if __name__=="__main__":
-    traininglog_filename=os.path.join(os.getcwd(),'..','training_log','model_training_log.csv')
+
+    #saving training log as csv,  replace file path to your desired path
+    traininglog_filename=os.path.join(os.getcwd(),'training_log','model_training_log.csv')
     batch_size=5
     es_patience=5
 
-    train_generator, val_generator=instantiate_generator(batch_size)
+    '''
+    instantiate data generator, replace file path to folder that contain all
+    all raw .npy file
+    '''
+    npy_dataset_folder = 'raw_data/npy_raw_data'
+    train_generator, val_generator=instantiate_generator(npy_dataset_folder, batch_size)
 
     #model compilation
     cnn_model=model_compilation()
@@ -107,9 +114,8 @@ if __name__=="__main__":
     csv_log=csv_logger(traininglog_filename)
 
     #model fitting
-
     cnn_model=model_fitting(cnn_model,train_generator,val_generator,es,csv_log)
 
-    save_model_path=os.path.join(os.getcwd(),'..',)
-    os.listdir(save_model_path)
+    #saving model, replace the file paht to your desired path
+    save_model_path=os.path.join(os.getcwd(),'model_collection','cnn_model')
     cnn_model.save(save_model_path)
