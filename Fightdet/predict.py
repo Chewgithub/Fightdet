@@ -1,5 +1,5 @@
-from Fightdet.pre_processing import process_data
-from Fightdet.video_to_npy import load_data
+from Fightdet.pre_processing_prediction import process_data
+from Fightdet.load_data_prediction import load_data
 
 def make_prediction(model, video_path):
     '''
